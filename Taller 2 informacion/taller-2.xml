@@ -1,0 +1,137 @@
+##Plataforma
+<platform version="3">
+    <AS id="AS0" routing="Full">
+        <!-- Preguntar por `horus_avail.trace` -->
+        <host id="Horus" core="8" power="8095000000" availability_file="horus_avail.trace" state_file="horus.state" />
+        <host id="Anubis" core="8" power="8095000000"/>
+        <host id="Ra" core="8" power="8095000000"/>
+        <host id="Himotep" core="8" power="8095000000"/>
+
+        <link id="link1" bandwidth="125000000" latency="0.000500" bandwidth_file="link1.bw" latency_file="link1.lat"/>
+        <link id="link2" bandwidth="125000000" latency="0.000500"/>
+        <link id="link3" bandwidth="125000000" latency="0.005000"/>
+        <link id="link4" bandwidth="125000000" latency="0.005000"/>
+        <link id="link5" bandwidth="125000000" latency="0.001"/>
+
+        <route src="Horus" dst="Anubis">
+            <link_ctn id="link5"/>
+        </route>
+
+        <route src="Anubis" dst="Horus">
+            <link_ctn id="link5"/>
+        </route>
+
+        <route src="Horus" dst="Himotep">
+            <link_ctn id="link1"/>
+        </route>
+        <route src="Horus" dst="Ra">
+            <link_ctn id="link2"/>
+        </route>
+        <route src="Ra" dst="Anubis">
+            <link_ctn id="link4"/>
+        </route>
+        <route src="Himotep" dst="Anubis">
+            <link_ctn id="link3"/>
+        </route>
+    </AS>
+</platform>
+
+
+## Infraestructura
+<clouds version="1">
+    <cloud id="myCloud">
+        <storage id="myStorage" engine="org.simgrid.schiaas.engine.storage.rise.Rise">
+            <config controller="Horus"/>
+        </storage>
+        <compute engine="org.simgrid.schiaas.engine.compute.rise.Rice">
+            <config controller="Horus" image_storage="myStorage" image_caching="PRE" boot_delay="10"/>
+
+            <instance_type id="XS" core="1" memory="2000" disk="40000"/>
+            <instance_type id="S" core="2" memory="4000" disk="80000"/>
+            <instance_type id="M" core="4" memory="8000" disk="160000"/>
+            <instance_type id="L" core="6" memory="12000" disk="240000"/>
+            <instance_type id="XL" core="8" memory="16000" disk="320000"/>
+
+            <image id="myImage" size="1073741824"/>
+
+            <host id="Anubis"/>
+            <host id="Himotep"/>
+            <host id="Ra"/>
+
+            <instance id=”vm1” host=”Anubis” type=”XL” image=”myImage”/>
+
+            <instance id=”vm2” host=”Himotep” type=”XL” image=”myImage”/>
+
+            <instance id=”vm3” host=”Ra” type=”XL” image=”myImage”/>
+        </compute>
+    </cloud>
+</clouds>
+
+
+## Aplicacion
+<processes>
+<process host="Horus" function="cloud.schiaas.Master">
+
+    <argument value="80"/>
+
+    <argument value="5e10"/>
+
+    <argument value="1000000"/>
+
+    <argument value="8"/>
+
+</process>
+
+<process host="Anubis" function="cloud.schiaas.Slave"/>
+
+<process host="Anubis" function="cloud.schiaas.Slave"/>
+
+<process host="Anubis" function="cloud.schiaas.Slave"/>
+
+<process host="Anubis" function="cloud.schiaas.Slave"/>
+
+<process host="Anubis" function="cloud.schiaas.Slave"/>
+
+<process host="Anubis" function="cloud.schiaas.Slave"/>
+
+<process host="Anubis" function="cloud.schiaas.Slave"/>
+
+<process host="Anubis" function="cloud.schiaas.Slave"/>
+
+
+
+<process host="Himotep" function="cloud.schiaas.Slave"/>
+
+<process host="Himotep" function="cloud.schiaas.Slave"/>
+
+<process host="Himotep" function="cloud.schiaas.Slave"/>
+
+<process host="Himotep" function="cloud.schiaas.Slave"/>
+
+<process host="Himotep" function="cloud.schiaas.Slave"/>
+
+<process host="Himotep" function="cloud.schiaas.Slave"/>
+
+<process host="Himotep" function="cloud.schiaas.Slave"/>
+
+<process host="Himotep" function="cloud.schiaas.Slave"/>
+
+
+
+<process host="Ra" function="cloud.schiaas.Slave"/>
+
+<process host="Ra" function="cloud.schiaas.Slave"/>
+
+<process host="Ra" function="cloud.schiaas.Slave"/>
+
+<process host="Ra" function="cloud.schiaas.Slave"/>
+
+<process host="Ra" function="cloud.schiaas.Slave"/>
+
+<process host="Ra" function="cloud.schiaas.Slave"/>
+
+<process host="Ra" function="cloud.schiaas.Slave"/>
+
+<process host="Ra" function="cloud.schiaas.Slave"/>
+
+<processes>

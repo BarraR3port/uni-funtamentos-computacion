@@ -1,0 +1,39 @@
+top //sirve para mostrar los procesos con su niceness
+
+date >> fecha.txt    // >> es un append agrega al final del archivo un solo > sobrescribe a cada rato los valores del archivo txt
+	
+tail -f fecha.txt & // sirve para ver que es lo que tiene el archivo // & sirve para hacer que un proceso se ejecute de manera secundaria o background
+
+jobs // muestra los servicios corriendo en segundo plano
+
+fg // levanta el servicio en primer plano, si tenia un & se le quita al ejecutar el comando
+
+bg // pone el servicio en segundo plano
+
+ps -aux  // explora todos los procesos del usuario y el sistema
+
+ps -aux (pipe) grep tail // filtro del comando tail
+
+kill -9 ID // para matar procesos
+
+touch calendar.sh // calendarizacion
+
+vi calendar.sh // calendarizacion se oprime i latina
+
+* * * * * date >> fecha.txt // calendarizacion cada minuto
+
+// tecla escape para modo comando
+
+// salir es :wq
+
+// cat para ver el texto del archivo
+
+crontab calendar.sh // crontab, si despues para ver que esta calendarizado se usa crontab -l
+tail -f fecha.txt // tail sirve para seguir un archivo
+// man nombre_comando   para revisar manual de comandos
+// crontab -r mata la calendarizacion
+// crontab -l muestra las calendarizaciones
+
+
+
+
