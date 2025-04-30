@@ -299,7 +299,7 @@ int main(int argc, char* argv[]) {
         cout << "Configuración MPI - Procesos disponibles: " << size << "\n\n";
     }
     
-    for(int n = 2; n <= 20; n++) {
+    for(int n = 2; n <= 14; n++) {
         medir_tiempos(n, rank, size);
     }
     
