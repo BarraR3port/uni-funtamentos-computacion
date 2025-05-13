@@ -6,19 +6,22 @@ import cl.unab.fundamentos.interfaces.BacktrackingProblem;
 
 public class MyBacktrackingProblem implements BacktrackingProblem{
     private List<Integer> currentState = new ArrayList<>();
-    private final int targetSum = 14;
-    private final List<Integer> availableMoves = List.of(1,2,3,4,5);
+    private final int targetSum;
+    private final List<Integer> availableMoves;
 
-    public MyBacktrackingProblem() {
-        // Default constructor
+    public MyBacktrackingProblem(int targetSum) {
+        this.targetSum = targetSum;
+        this.availableMoves = new ArrayList<>();
+        for (int i = 1; i <= targetSum; i++) {
+            availableMoves.add(i);
+        }
     }
 
     // Copy constructor
     public MyBacktrackingProblem(MyBacktrackingProblem other) {
-        // Copy the current state
         this.currentState = new ArrayList<>(other.currentState);
-        // Copy the target sum (it's final, but for clarity)
-        // Copy the available moves (it's immutable, so safe to share)
+        this.targetSum = other.targetSum;
+        this.availableMoves = new ArrayList<>(other.availableMoves);
     }
 
     public MyBacktrackingProblem clone() {
@@ -53,4 +56,27 @@ public class MyBacktrackingProblem implements BacktrackingProblem{
         return new ArrayList<>(currentState);
     }
 
+    @Override
+    public int getTargetSum() {
+        return targetSum;
+    }
+
+    @Override
+    public void printMatrix() {
+        // Print the solution visually (each row = value in solution)
+        System.out.println("Solution matrix (each row is a value in the solution):");
+        for (int i = 0; i < currentState.size(); i++) {
+            System.out.print("Row " + (i+1) + ": "); // Print row index
+            for (int j = 0; j < currentState.get(i); j++) {
+                System.out.print("* ");
+            }
+            System.out.println(); // New line for each row
+        }
+        System.out.println(); // Extra line for separation
+    }
+
+    // Método para obtener la solución como lista (útil para formatear)
+    public List<Integer> getCurrentState() {
+        return new ArrayList<>(currentState);
+    }
 }

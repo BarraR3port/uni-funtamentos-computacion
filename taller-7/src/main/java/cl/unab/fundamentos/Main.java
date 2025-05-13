@@ -1,45 +1,91 @@
 package cl.unab.fundamentos;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.atomic.AtomicBoolean;
-import cl.unab.fundamentos.app.MyBacktrackingProblem;
-import cl.unab.fundamentos.app.ParallelBacktracking;
-import cl.unab.fundamentos.interfaces.BacktrackingProblem;
+import cl.unab.fundamentos.app.GraphBacktrackingProblem;
+import cl.unab.fundamentos.app.SequentialGraphSolver;
+import cl.unab.fundamentos.app.ParallelGraphSolver;
+import cl.unab.fundamentos.utils.TimeLogger;
+import java.util.*;
+
 public class Main {
+    private static final int INF = 9999;
+    private static final int MAX_SIZE = 14;
+    private static final int MIN_SIZE = 2;
+    private static final int NUM_THREADS = 16;
+
     public static void main(String[] args) {
-        BacktrackingProblem problem = new MyBacktrackingProblem(); // Reemplaza esto con la instancia de tu problema de backtracking
-        AtomicBoolean foundSolution = new AtomicBoolean(false);
-        ConcurrentLinkedQueue<Object> solutions = new ConcurrentLinkedQueue<>();
-        List<Integer> initialMoves = problem.getPossibleMoves();
-        List<Thread> threads = new ArrayList<>();
-        System.out.println("Iniciando backtracking paralelo...");
-        long startTime = System.currentTimeMillis();
-        // Crea un thread para cada movimiento inicial posible
-        for (int move : initialMoves) {
-            MyBacktrackingProblem problemCopy = ((MyBacktrackingProblem) problem).clone(); // Create a copy for each thread
-            problemCopy.applyMove(move);
-            ParallelBacktracking parallelBacktracking = new ParallelBacktracking(problemCopy, foundSolution, solutions);
-            Thread thread = new Thread(parallelBacktracking);
-            threads.add(thread);
-            thread.start();
+        System.out.println("Comparación de algoritmos secuencial vs paralelo para matrices desde 2x2 hasta 14x14");
+        System.out.println("Mostrando el camino de menor costo encontrado\n");
+        System.out.println("Configuración - Procesos disponibles: " + NUM_THREADS + "\n");
+
+        Random rand = new Random();
+        double totalSeqTime = 0;
+        double totalParTime = 0;
+
+        for (int n = MIN_SIZE; n <= MAX_SIZE; n++) {
+            int[][] matrix = generarMatriz(n, rand);
+            int start = rand.nextInt(n);
+            int end = rand.nextInt(n);
+            while (end == start) end = rand.nextInt(n);
+
+            // Secuencial
+            GraphBacktrackingProblem seqProblem = new GraphBacktrackingProblem(matrix, start, end);
+            seqProblem.printMatrix();
+            System.out.println("Punto inicial: " + start + ", Punto final: " + end + "\n");
+            System.out.println("Resultados para matriz " + n + "x" + n + ":\n");
+
+            long startSeq = System.nanoTime();
+            SequentialGraphSolver seqSolver = new SequentialGraphSolver(seqProblem);
+            seqSolver.solve();
+            long endSeq = System.nanoTime();
+            double tiempoSeq = (endSeq - startSeq) / 1000.0; // microsegundos
+            totalSeqTime += tiempoSeq;
+
+            System.out.println("[Secuencial]");
+            System.out.println("Tiempo: " + tiempoSeq + " microsegundos");
+            seqProblem.printPath();
+
+            // Paralelo
+            GraphBacktrackingProblem parProblem = new GraphBacktrackingProblem(matrix, start, end);
+            long startPar = System.nanoTime();
+            ParallelGraphSolver parSolver = new ParallelGraphSolver(parProblem, NUM_THREADS);
+            parSolver.solve();
+            long endPar = System.nanoTime();
+            double tiempoPar = (endPar - startPar) / 1000.0; // microsegundos
+            totalParTime += tiempoPar;
+
+            System.out.println("\n[Paralelo]");
+            System.out.println("Tiempo: " + tiempoPar + " microsegundos");
+            System.out.println("Procesos utilizados: " + NUM_THREADS);
+            parProblem.printPath();
+
+            if (tiempoPar > 0) {
+                System.out.println("\nSpeedup: " + (tiempoSeq / tiempoPar));
+            }
+            System.out.println("----------------------------------------\n");
+
+            // Registrar tiempos en archivo
+            TimeLogger.logExecutionTime(n, tiempoSeq, tiempoPar, NUM_THREADS);
         }
-        // Espera a que todos los threads terminen
-        for (Thread thread : threads) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+
+        // Registrar resumen final
+        TimeLogger.logFinalSummary(MAX_SIZE, totalSeqTime, totalParTime);
+    }
+
+    private static int[][] generarMatriz(int n, Random rand) {
+        int[][] matrix = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
+                    matrix[i][j] = 0;
+                } else {
+                    if (rand.nextDouble() < 0.05) {
+                        matrix[i][j] = INF;
+                    } else {
+                        matrix[i][j] = 1 + rand.nextInt(10);
+                    }
+                }
             }
         }
-        long endTime = System.currentTimeMillis();
-        StringBuilder sb = new StringBuilder();
-        sb.append("Backtracking paralelo completado en ").append(endTime - startTime).append(" ms");
-        System.out.println(sb.toString());
-        // Imprime las soluciones encontradas
-        while (!solutions.isEmpty()) {
-            System.out.println(solutions.poll());
-        }
+        return matrix;
     }
 }
