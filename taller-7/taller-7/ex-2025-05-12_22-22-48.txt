@@ -1,0 +1,61 @@
+=== Registro de Tiempos de Ejecución ===
+Fecha de inicio: 2025-05-12 22:22:48
+Tamaño máximo de matrices: 2x2
+Número de threads: 16
+============================================
+
+Matriz 2x2:
+Tiempo secuencial: 241.25 microsegundos
+Tiempo paralelo: 2345.79 microsegundos
+Speedup: 0.1028
+----------------------------------------
+Matriz 3x3:
+Tiempo secuencial: 10.58 microsegundos
+Tiempo paralelo: 225.58 microsegundos
+Speedup: 0.0469
+----------------------------------------
+Matriz 4x4:
+Tiempo secuencial: 14.17 microsegundos
+Tiempo paralelo: 167.96 microsegundos
+Speedup: 0.0843
+----------------------------------------
+Matriz 5x5:
+Tiempo secuencial: 55.54 microsegundos
+Tiempo paralelo: 198.50 microsegundos
+Speedup: 0.2798
+----------------------------------------
+Matriz 6x6:
+Tiempo secuencial: 84.00 microsegundos
+Tiempo paralelo: 368.33 microsegundos
+Speedup: 0.2281
+----------------------------------------
+Matriz 7x7:
+Tiempo secuencial: 260.67 microsegundos
+Tiempo paralelo: 327.71 microsegundos
+Speedup: 0.7954
+----------------------------------------
+Matriz 8x8:
+Tiempo secuencial: 233.29 microsegundos
+Tiempo paralelo: 498.75 microsegundos
+Speedup: 0.4678
+----------------------------------------
+Matriz 9x9:
+Tiempo secuencial: 1376.83 microsegundos
+Tiempo paralelo: 562.75 microsegundos
+Speedup: 2.4466
+----------------------------------------
+Matriz 10x10:
+Tiempo secuencial: 13982.46 microsegundos
+Tiempo paralelo: 791.67 microsegundos
+Speedup: 17.6620
+----------------------------------------
+Matriz 11x11:
+Tiempo secuencial: 45055.17 microsegundos
+Tiempo paralelo: 1734.42 microsegundos
+Speedup: 25.9771
+----------------------------------------
+Matriz 12x12:
+Tiempo secuencial: 407728.00 microsegundos
+Tiempo paralelo: 774.71 microsegundos
+Speedup: 526.2989
+----------------------------------------
