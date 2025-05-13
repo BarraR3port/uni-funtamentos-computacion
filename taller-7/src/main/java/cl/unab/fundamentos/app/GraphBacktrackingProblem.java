@@ -96,20 +96,39 @@ public class GraphBacktrackingProblem implements BacktrackingProblem {
 
     @Override
     public void printMatrix() {
-        int limit = Math.min(n, 5);
-        System.out.println("Matriz " + n + "x" + n + " (mostrando esquina 5x5 si n > 5):");
+        int limit = Math.min(n, matrix.length);
+        StringBuilder sb = new StringBuilder();
+        
+        // Add top border
+        sb.append("┌");
+        for (int j = 0; j < limit * 4 + (limit-1); j++) {
+            sb.append("─");
+        }
+        sb.append("┐\n");
+
+        // Add matrix content with side borders
         for (int i = 0; i < limit; i++) {
+            sb.append("│");
             for (int j = 0; j < limit; j++) {
                 if (matrix[i][j] == INF) {
-                    System.out.printf("%4s", "INF");
+                    sb.append(String.format("%4s", "INF"));
                 } else {
-                    System.out.printf("%4d", matrix[i][j]);
+                    sb.append(String.format("%4d", matrix[i][j]));
                 }
+                if (j < limit-1) sb.append(" ");
             }
-            if (n > 5) System.out.print(" ...");
-            System.out.println();
+            sb.append("│\n");
         }
-        if (n > 5) System.out.println("...");
+
+        // Add bottom border
+        sb.append("└");
+        for (int j = 0; j < limit * 4 + (limit-1); j++) {
+            sb.append("─");
+        }
+        sb.append("┘");
+
+        // Print the complete matrix
+        System.out.println(sb.toString());
     }
 
     public void printPath() {

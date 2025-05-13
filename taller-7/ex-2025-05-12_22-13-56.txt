@@ -1,0 +1,81 @@
+=== Registro de Tiempos de Ejecución ===
+Fecha de inicio: 2025-05-12 22:13:56
+Tamaño máximo de matrices: 2x2
+Número de threads: 16
+============================================
+
+Matriz 2x2:
+Tiempo secuencial: 492.25 microsegundos
+Tiempo paralelo: 3408.79 microsegundos
+Speedup: 0.1444
+----------------------------------------
+Matriz 3x3:
+Tiempo secuencial: 9.13 microsegundos
+Tiempo paralelo: 240.63 microsegundos
+Speedup: 0.0379
+----------------------------------------
+Matriz 4x4:
+Tiempo secuencial: 14.83 microsegundos
+Tiempo paralelo: 412.67 microsegundos
+Speedup: 0.0359
+----------------------------------------
+Matriz 5x5:
+Tiempo secuencial: 126.50 microsegundos
+Tiempo paralelo: 470.46 microsegundos
+Speedup: 0.2689
+----------------------------------------
+Matriz 6x6:
+Tiempo secuencial: 115.79 microsegundos
+Tiempo paralelo: 420.04 microsegundos
+Speedup: 0.2757
+----------------------------------------
+Matriz 7x7:
+Tiempo secuencial: 287.83 microsegundos
+Tiempo paralelo: 540.21 microsegundos
+Speedup: 0.5328
+----------------------------------------
+Matriz 8x8:
+Tiempo secuencial: 576.79 microsegundos
+Tiempo paralelo: 1784.00 microsegundos
+Speedup: 0.3233
+----------------------------------------
+Matriz 9x9:
+Tiempo secuencial: 2219.13 microsegundos
+Tiempo paralelo: 955.79 microsegundos
+Speedup: 2.3218
+----------------------------------------
+Matriz 10x10:
+Tiempo secuencial: 8173.63 microsegundos
+Tiempo paralelo: 662.04 microsegundos
+Speedup: 12.3461
+----------------------------------------
+Matriz 11x11:
+Tiempo secuencial: 33765.96 microsegundos
+Tiempo paralelo: 580.21 microsegundos
+Speedup: 58.1963
+----------------------------------------
+Matriz 12x12:
+Tiempo secuencial: 429515.17 microsegundos
+Tiempo paralelo: 639.13 microsegundos
+Speedup: 672.0362
+----------------------------------------
+Matriz 13x13:
+Tiempo secuencial: 4371858.04 microsegundos
+Tiempo paralelo: 4458.17 microsegundos
+Speedup: 980.6403
+----------------------------------------
+Matriz 14x14:
+Tiempo secuencial: 41811504.00 microsegundos
+Tiempo paralelo: 856.46 microsegundos
+Speedup: 48819.0945
+----------------------------------------
+
+=== Resumen Final ===
+Fecha de inicio: 2025-05-12 22:13:56
+Fecha de finalización: 2025-05-12 22:14:42
+Total matrices procesadas: 13
+Tiempo total secuencial: 46658659.04 microsegundos
+Tiempo total paralelo: 15428.58 microsegundos
+Speedup promedio: 3024.1701
+============================================
+
