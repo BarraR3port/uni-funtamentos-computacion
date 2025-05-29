@@ -1,3 +1,7 @@
 {
-    "java.debug.settings.onBuildFailureProceed": true
+    "java.debug.settings.onBuildFailureProceed": true,
+    "files.associations": {
+        "*.dbclient-js": "javascript",
+        "vector": "cpp"
+    }
 }
